@@ -1,7 +1,9 @@
 package main
 
 import (
+	"github.com/apache/incubator-openwhisk-wskdeploy/cmdImp"
 	"github.com/hashicorp/terraform/helper/schema"
+	"log"
 )
 
 func resourceServer() *schema.Resource {
@@ -16,38 +18,31 @@ func resourceServer() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 			},
+			"wskdeploy_yaml": &schema.Schema{
+				Type:     schema.TypeString,
+				Required: true,
+			},
 		},
 	}
 }
 
 func resourceServerCreate(d *schema.ResourceData, m interface{}) error {
-	address := d.Get("address").(string)
-	d.SetId(address)
-	return nil
+	_ = d.Get("address").(string)
+	yaml := d.Get("wskdeploy_yaml").(string)
+	log.Printf("%s", yaml)
+	params := cmdImp.DeployParams{false, ".", yaml, "", false, false}
+	err := cmdImp.Deploy(params)
+	return err
 }
 
 func resourceServerRead(d *schema.ResourceData, m interface{}) error {
 
-	d.Set("address", "9.8.7.6")
+	_ = d.Get("address").(string)
+
 	return nil
 }
 
 func resourceServerUpdate(d *schema.ResourceData, m interface{}) error {
-	d.Partial(true)
-
-	if d.HasChange("address") {
-		// Try updating the address
-		d.Set("address", "3.4.5.6")
-
-		d.SetPartial("address")
-	}
-
-	// If we were to return here, before disabling partial mode below,
-	// then only the "address" field would be saved.
-
-	// We succeeded, disable partial mode. This causes Terraform to save
-	// save all fields again.
-	d.Partial(false)
 
 	return nil
 }

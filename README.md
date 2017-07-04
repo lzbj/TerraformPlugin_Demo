@@ -30,3 +30,8 @@ Then run:
 Run command:
 `terraform apply` to deploy the manifest yaml file.
 
+# Next Steps:
+We could add more config tags and implement the code logic to support such as update, delete etc, By
+defining new terraform style tags or we could use yaml instead.
+
+

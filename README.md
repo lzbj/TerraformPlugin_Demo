@@ -8,11 +8,23 @@ local wskdeploy yaml file instead.
 # How to
 This section describe how to build and run this demo app.
 
+## wskdeploy
+wskdeploy is a tool to help deploy OpenWHisk packages in a batch, this guide assume you have
+a basic idea about [OpenWhisk](https://openwhisk.org) and how wskdeploy worked.
+
 ## Install Go
 For how to install go, please refer [golang web site](https://golang.org)
 
 ## Install terraform.
 For how to install terraform, please refer [terraform website](https://www.terraform.io)
+
+## Clone wskdeploy repo
+Clone wskdeploy repo under your $GOPATH
+
+`git clone https://github.com/apache/incubator-openwhisk-wskdeploy.git $GOPATH/src/github.com/apache/incubator-openwhisk-wskdeploy`
+
+The wskdeloy yaml file property is defined in sample main.tf, you can change $USER and $GOPATH in the file as your
+environments, so terraform could find your local wskdeploy yaml file.
 
 ## Build and run
 Run the below command to get all the dependencies:
